@@ -8,7 +8,7 @@ homepage: https://celo.org
 license: Apache-2.0
 metadata:
   author: celo-org
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Celopedia Skill
@@ -140,6 +140,17 @@ Chain IDs, RPCs, explorers, faucets, RPC limits (`eth_getLogs` block range), and
 
 **References**: `network-info.md`
 
+### 12. Feedback & Issue Routing
+
+Help the user report a bug or propose a feature and **route it to the right Celo repo** — without leaving their editor.
+
+- Triggers on intent like "report a bug", "request a feature", "something's wrong in the docs / this skill", "file an issue", or "give feedback"
+- Routes to the correct destination (this skill → `celo-org/celopedia-skills`, docs → `celo-org/docs`, Celo Composer → `celo-org/celo-composer`, x402 SDK/attribution → `celo-org/attribution-tags`, x402 facilitator/infra → `celo-org/x402-facilitator`)
+- Default output is a GitHub **issue**; for small fixes to sources we can edit (this skill's references and the Celo docs), offer a **PR** instead
+- Files via `gh`, with a prefilled browser-form fallback; **always confirm the drafted issue with the user and keep it public-safe** (no private names/calls/quotes) before filing
+
+**References**: `feedback.md`
+
 ---
 
 ## Research Workflow
@@ -163,6 +174,7 @@ Chain IDs, RPCs, explorers, faucets, RPC limits (`eth_getLogs` block range), and
 | Network config | Check `network-info.md` |
 | Governance | Check `governance.md` |
 | SDK help | Check `sdk-reference.md` |
+| Report a bug / request a feature / give feedback | Route via `feedback.md` |
 
 ### Step 2: Gather Evidence (Prefer Live Data)
 
