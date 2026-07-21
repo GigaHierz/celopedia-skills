@@ -78,6 +78,11 @@ Replace crypto-jargon with user-friendly terms everywhere a real user sees them 
 | Deposit (Add Cash) | `https://minipay.opera.com/add_cash` | Low balance; user needs to top up |
 
 > Canonical list: `https://docs.minipay.xyz/technical-references/deeplinks.html#available-deeplinks` — fetch this before shipping; MiniPay publishes new deeplinks periodically.
+>
+> **Opening your app from an external / referral link** (so a shared link opens
+> _inside_ MiniPay instead of a browser) is **not** an available deeplink —
+> request it, plus a Discover-page listing, from the MiniPay team during
+> submission. See `minipay-guide.md` → Deeplinks + Sharing.
 
 ---
 

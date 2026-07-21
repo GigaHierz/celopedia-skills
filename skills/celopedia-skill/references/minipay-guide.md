@@ -297,6 +297,36 @@ This is part of MiniPay's submission requirements — see `minipay-requirements.
 > **Canonical list:** `https://docs.minipay.xyz/technical-references/deeplinks.html#available-deeplinks` — fetch before shipping; MiniPay publishes new deeplinks periodically.
 >
 > **UI copy:** label this action **Deposit** in buttons/messages — not "Add Cash", "Onramp", or "Buy". See `minipay-requirements.md` §3.
+>
+> **No "open my Mini App" deeplink.** The published deeplinks are ACTIONS
+> (Add Cash, etc.) — there is **no public deeplink to open _your_ Mini App
+> inside MiniPay from an external link** (a tweet, Telegram, SMS). A shared link
+> opens in the recipient's normal mobile browser, not MiniPay. To make a shared
+> / **referral** link (e.g. `?ref=<wallet>`) open your app _inside_ MiniPay and
+> carry its params through, you must **request a deep link + Discover-page
+> listing from the MiniPay team** — it is not self-serve. Confirmed against
+> `docs.celo.org/build/build-on-minipay` + `minipay.to/mini-apps` (2026-07).
+
+---
+
+## Sharing out of a Mini App (Web Share)
+
+MiniPay runs your app in a webview, so `navigator.share()` opens the phone's
+native share sheet — the only way to reach Instagram / Stories (no web-share URL
+exists for those). Gotchas from production:
+
+- **You can't force a target first.** The OS picker owns the order; you can't
+  make X (or any app) the first option. If X-first matters, add an explicit
+  `https://x.com/intent/tweet?text=…&url=…` button instead of relying on the sheet.
+- **Telegram (and some targets) drop the `text`** when a Web Share payload has
+  both `text` and `url` — only the link survives. Fold the link INTO the text and
+  share one string: `navigator.share({ text: \`${msg}\n\n${url}\` })`.
+- **`window.open(intentUrl, '_blank')` works** inside the webview for X /
+  WhatsApp / Telegram, as long as it's inside a user-gesture (click) handler.
+  Use `https://api.whatsapp.com/send?text=…` — `wa.me/?text=…` without a phone
+  number shows an "invalid number" page. Telegram: `https://t.me/share/url?url=…&text=…`.
+- Whatever you share, the **link opens in a normal browser, not MiniPay** (see
+  Deeplinks above) — so keep referral attribution working via URL params.
 
 ---
 
