@@ -79,10 +79,11 @@ Replace crypto-jargon with user-friendly terms everywhere a real user sees them 
 
 > Canonical list: `https://docs.minipay.xyz/technical-references/deeplinks.html#available-deeplinks` — fetch this before shipping; MiniPay publishes new deeplinks periodically.
 >
-> **Opening your app from an external / referral link** (so a shared link opens
-> _inside_ MiniPay instead of a browser) is **not** an available deeplink —
-> request it, plus a Discover-page listing, from the MiniPay team during
-> submission. See `minipay-guide.md` → Deeplinks + Sharing.
+> **Opening your app from an external link:** use the **Browse** deeplink
+> `https://link.minipay.xyz/browse?url=<url-encoded target>` — the target short
+> link (e.g. `https://opr.as/xxxx`) is **provisioned by MiniPay; request it**.
+> MiniPay does **not** do referrals or dynamic links — carry your own params
+> (`?ref=`) in the target URL. See `minipay-guide.md` → Deeplinks + Sharing.
 
 ---
 

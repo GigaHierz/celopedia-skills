@@ -293,19 +293,26 @@ This is part of MiniPay's submission requirements — see `minipay-requirements.
 | Deeplink | URL | Purpose |
 |----------|-----|---------|
 | Deposit (Add Cash) | `https://minipay.opera.com/add_cash` | Redirect users with low balance to top up |
+| Open in MiniPay (Browse) | `https://link.minipay.xyz/browse?url=<url-encoded target>` | Open an external link **inside** MiniPay's in-app browser (the target short link is provisioned by MiniPay — request it) |
 
 > **Canonical list:** `https://docs.minipay.xyz/technical-references/deeplinks.html#available-deeplinks` — fetch before shipping; MiniPay publishes new deeplinks periodically.
 >
 > **UI copy:** label this action **Deposit** in buttons/messages — not "Add Cash", "Onramp", or "Buy". See `minipay-requirements.md` §3.
 >
-> **No "open my Mini App" deeplink.** The published deeplinks are ACTIONS
-> (Add Cash, etc.) — there is **no public deeplink to open _your_ Mini App
-> inside MiniPay from an external link** (a tweet, Telegram, SMS). A shared link
-> opens in the recipient's normal mobile browser, not MiniPay. To make a shared
-> / **referral** link (e.g. `?ref=<wallet>`) open your app _inside_ MiniPay and
-> carry its params through, you must **request a deep link + Discover-page
-> listing from the MiniPay team** — it is not self-serve. Confirmed against
-> `docs.celo.org/build/build-on-minipay` + `minipay.to/mini-apps` (2026-07).
+> **Opening your Mini App from an external link (referrals / campaigns).** Use
+> the **Browse** deeplink to open a URL _inside_ MiniPay:
+> `https://link.minipay.xyz/browse?url=<url-encoded target>&campaign=<app>&source=external&medium=social`.
+> Example (Mondeto): `https://link.minipay.xyz/browse?url=https%3A%2F%2Fopr.as%2Fw752&campaign=mondeto&source=external&medium=social`.
+> The target is a **MiniPay/Opera short link** for your listed app (e.g.
+> `https://opr.as/xxxx`) — **request it from the MiniPay team**, it's not
+> self-serve.
+>
+> **MiniPay does NOT do referrals or dynamic links.** The `campaign/source/medium`
+> params are MiniPay's own open-attribution analytics, **not** a referral system,
+> and MiniPay won't carry arbitrary params through for you. Any referral logic
+> (e.g. `?ref=<wallet>`) is **yours** — bake it into the `url=` target you pass
+> and read it in your app. A plain shared link (not wrapped in Browse) opens in a
+> normal browser, not MiniPay.
 
 ---
 
@@ -325,8 +332,9 @@ exists for those). Gotchas from production:
   WhatsApp / Telegram, as long as it's inside a user-gesture (click) handler.
   Use `https://api.whatsapp.com/send?text=…` — `wa.me/?text=…` without a phone
   number shows an "invalid number" page. Telegram: `https://t.me/share/url?url=…&text=…`.
-- Whatever you share, the **link opens in a normal browser, not MiniPay** (see
-  Deeplinks above) — so keep referral attribution working via URL params.
+- A plain shared link opens in a normal browser; wrap it in the **Browse
+  deeplink** (Deeplinks above) to open inside MiniPay. Either way, keep referral
+  attribution in **your own** URL params — MiniPay doesn't do referrals.
 
 ---
 
